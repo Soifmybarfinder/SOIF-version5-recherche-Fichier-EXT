@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOIF MyBarFinder - Montpellier</title>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q86SEH0EQJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Q86SEH0EQJ', {
+            'page_title': 'SOIF MyBarFinder',
+            'page_location': window.location.href
+        });
+    </script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>SOIF</h1>
+            <p>soif.mybarfinder@gmail.com</p>
+            <p style="margin-top: 8px; font-size: 13px;">(<span id="totalBars">...</span> bars)</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-tab="fiche">📝 Fiche Bar</button>
+            <button class="tab" data-tab="recherche">🔍 Recherche</button>
+        </div>
+
+        <div id="fiche-content" class="content active">
+            <button class="btn-primary" id="newBarBtn">+ Ajouter un nouveau bar</button>
+            
+            <div class="btn-grid">
+                <button class="btn-secondary" id="exportBtn">📥 Exporter</button>
+                <button class="btn-secondary" id="importBtn">📤 Importer</button>
+            </div>
+            <input type="file" id="fileInput" accept=".json" style="display: none;">
+            
+            <button class="btn-secondary" id="resetBtn" style="margin-bottom: 20px;">🔄 Réinitialiser</button>
+            
+            <div id="barFormContainer" style="display: none;">
+                <h3 style="margin-bottom: 20px; font-size: 20px;">Informations du bar</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">Nom du bar *</label>
+                    <input type="text" class="form-input" id="barName" placeholder="Ex: Le Rockstore">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Type *</label>
+                    <input type="text" class="form-input" id="barType" placeholder="Ex: Bar Rock">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Adresse *</label>
+                    <input type="text" class="form-input" id="barAddress" placeholder="Ex: 20 Rue de Verdun, 34000 Montpellier">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Distance (km)</label>
+                    <input type="number" step="0.1" class="form-input" id="barDistance" placeholder="0.5">
+                </div>
+
+                <div class="filters-section">
+                    <h3 style="margin-bottom: 15px; font-size: 18px;">Caractéristiques</h3>
+                    <div id="formFiltersContainer"></div>
+                </div>
+
+                <button class="btn-primary" id="saveBtn">Enregistrer le bar</button>
+                <button class="btn-secondary" id="cancelBtn">Annuler</button>
+            </div>
+
+            <div id="barsList">
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Bars enregistrés (<span id="barsCount">...</span>)</h3>
+                <div id="barsListContainer"></div>
+            </div>
+        </div>
+
+        <div id="recherche-content" class="content">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Rechercher par nom, type ou adresse">
+            
+            <div class="btn-grid">
+                <button class="btn-primary" id="addFilterBtn">+ Ajouter un filtre</button>
+                <button class="btn-primary" id="surpriseMeBtn">🎲 Surprends-moi !</button>
+            </div>
+            
+            <button class="btn-primary" id="showResultsBtn" style="margin-bottom: 20px;">
+                🔍 Voir les résultats (<span id="resultCountBtn">0</span>)
+            </button>
+            
+            <div class="selected-filters" id="selectedFilters"></div>
+
+            <div class="filters-search-section" id="filtersSection">
+                <h3>Filtres disponibles</h3>
+                <div id="searchFiltersContainer"></div>
+            </div>
+
+            <div style="margin-top: 30px; display: none;" id="resultsSection">
+                <button class="btn-secondary" id="backToFiltersBtn" style="margin-bottom: 20px;">
+                    ⬅️ Retour aux filtres
+                </button>
+                <h3 style="margin-bottom: 15px; font-size: 18px;">Résultats (<span id="resultCount">0</span>)</h3>
+                <div id="searchResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript externe -->
+    <script src="js/app.js"></script>
+</body>
+</html>
