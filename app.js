@@ -664,6 +664,24 @@ function showAddFilterModal() {
     html += '<div class="form-group">';
     html += '<label class="form-label">Emoji (optionnel)</label>';
     html += '<input type="text" class="form-input" id="filterEmoji" placeholder="🍺" maxlength="2">';
+    html += '<div class="emoji-suggestions" id="emojiSuggestions">';
+    // Emojis suggérés par thème
+    const emojis = [
+        '🍺', '🍻', '🍷', '🍸', '🍹', '🥂', '🍾', '🥃',
+        '🎵', '🎶', '🎤', '🎸', '🎹', '🎧', '🎺', '🎷',
+        '🌙', '☀️', '⭐', '✨', '🔥', '💫', '🌟', '⚡',
+        '🎨', '🎭', '🎪', '🎬', '🎮', '🎯', '🎲', '🃏',
+        '💃', '🕺', '🎉', '🎊', '🎈', '🎆', '🎇', '✌️',
+        '🍕', '🍔', '🌮', '🍜', '🍱', '🍛', '🥘', '🍳',
+        '🏖️', '🏝️', '🌴', '🌊', '🏔️', '⛰️', '🏞️', '🌅',
+        '💚', '💙', '💜', '🧡', '❤️', '💛', '🤍', '🖤',
+        '👥', '👫', '👬', '👭', '🤝', '👋', '🙌', '👏',
+        '📚', '📖', '🎓', '🧠', '💡', '🔬', '🔭', '🎨'
+    ];
+    emojis.forEach(emoji => {
+        html += `<span class="emoji-suggestion" data-emoji="${emoji}">${emoji}</span>`;
+    });
+    html += '</div>';
     html += '</div>';
     
     html += '<div class="form-group">';
@@ -695,6 +713,18 @@ function showAddFilterModal() {
     
     emojiInput.addEventListener('input', updatePreview);
     nameInput.addEventListener('input', updatePreview);
+    
+    // Gestion des clics sur les emojis suggérés
+    document.querySelectorAll('.emoji-suggestion').forEach(span => {
+        span.addEventListener('click', () => {
+            emojiInput.value = span.dataset.emoji;
+            updatePreview();
+            
+            // Highlight temporaire
+            document.querySelectorAll('.emoji-suggestion').forEach(s => s.classList.remove('selected'));
+            span.classList.add('selected');
+        });
+    });
     
     document.getElementById('confirmAddFilterBtn').addEventListener('click', () => {
         const category = document.getElementById('filterCategory').value;
